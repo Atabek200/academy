@@ -42,7 +42,7 @@ def client_signup(request):
                 address=form.cleaned_data.get('address')
             )
             login(request, user)
-            return redirect('home')  # или другая целевая страница
+            return redirect('home')
     else:
         form = ClientSignUpForm()
     return render(request, 'user/registrations_client.html', {'form': form})
@@ -57,7 +57,7 @@ def user_login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')  # перенаправление на главную страницу после входа
+                return redirect('home')
     else:
         form = AuthenticationForm()
     return render(request, 'user/login.html', {'form': form})
