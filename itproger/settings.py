@@ -30,9 +30,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-# Настройки перенаправления
-LOGIN_REDIRECT_URL = '/'  # перенаправлять на главную страницу после входа
-LOGOUT_REDIRECT_URL = 'login'  # перенаправлять на страницу входа после выход
+
+LOGIN_REDIRECT_URL = ''
+LOGOUT_REDIRECT_URL = 'login'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

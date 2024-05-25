@@ -22,8 +22,3 @@ class Master(models.Model):
     specialization = models.ForeignKey(Specialization, on_delete=models.SET_NULL, null=True)
     contact_phone = models.CharField(max_length=15)
     photo = models.ImageField(upload_to='master_photos/', null=True, blank=True)
-
-
-
-
-
