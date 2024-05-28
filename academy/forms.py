@@ -1,7 +1,8 @@
-from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Master, Specialization
+from .models import Specialization
+from django import forms
+from .models import Ticket
 
 
 class MasterSignUpForm(UserCreationForm):
@@ -23,3 +24,7 @@ class ClientSignUpForm(UserCreationForm):
         fields = ('username', 'email', 'password1', 'password2', 'contact_phone', 'address')
 
 
+class TicketForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ['title', 'description', 'master', 'status']

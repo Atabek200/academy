@@ -1,8 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="{% static 'style2.css' %}">
 </head>
 <body>
 <form method="post" enctype="multipart/form-data">
@@ -10,5 +12,7 @@
         {{ form.as_p }}
         <button type="submit">Sign Up</button>
     </form>
+
+
 </body>
 </html>

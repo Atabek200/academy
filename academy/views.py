@@ -1,12 +1,15 @@
-from django.contrib.auth import login
-from django.shortcuts import render
-from django.shortcuts import render, redirect
 from .forms import MasterSignUpForm
 from .forms import ClientSignUpForm
 from .models import Master, Client
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
+from .models import Ticket
+from .forms import TicketForm
+
+
+def index(request):
+    return render(request, 'index.html')
 
 
 def main(request):
@@ -25,7 +28,7 @@ def master_signup(request):
                 photo=form.cleaned_data.get('photo')
             )
             login(request, user)
-            return redirect('home')  # или другая целевая страница
+            return redirect('home')
     else:
         form = MasterSignUpForm()
     return render(request, 'user/registrations_master.html', {'form': form})
@@ -63,3 +66,34 @@ def user_login(request):
     return render(request, 'user/login.html', {'form': form})
 
 
+def ticket_list(request):
+    tickets = Ticket.objects.all()
+    return render(request, 'tickets/ticket_list.html', {'tickets': tickets})
+
+
+def ticket_detail(request, pk):
+    ticket = Ticket.objects.get(pk=pk)
+    return render(request, 'tickets/ticket_detail.html', {'ticket': ticket})
+
+
+def ticket_create(request):
+    if request.method == "POST":
+        form = TicketForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('ticket_list')
+    else:
+        form = TicketForm()
+    return render(request, 'tickets/ticket_form.html', {'form': form})
+
+
+def ticket_update(request, pk):
+    ticket = Ticket.objects.get(pk=pk)
+    if request.method == "POST":
+        form = TicketForm(request.POST, instance=ticket)
+        if form.is_valid():
+            form.save()
+            return redirect('ticket_list')
+    else:
+        form = TicketForm(instance=ticket)
+    return render(request, 'tickets/ticket_form.html', {'form': form})
