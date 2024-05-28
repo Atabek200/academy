@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tickets</title>
+    <link rel="stylesheet" href="{% static 'style3.css' %}">
+</head>
+<body>
+    <h1>Tickets</h1>
+    <a href="{% url 'ticket_create' %}">Create new ticket</a>
+    <ul>
+        {% for ticket in tickets %}
+            <li>
+                <a href="{% url 'ticket_detail' ticket.pk %}">{{ ticket.title }}</a>
+                - {{ ticket.status }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
