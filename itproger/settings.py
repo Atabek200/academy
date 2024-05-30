@@ -1,7 +1,6 @@
 import os.path
 from pathlib import Path
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -17,9 +16,20 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+]
+
+COMPRESS_ENABLED = True
+
+# myproject/settings.py
+
+STATIC_URL = 'https://cdn.example.com/static/'
+
 
 # Application definition
-
 INSTALLED_APPS = [
     'applications',
     'academy',
@@ -30,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'login'

@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="{% static 'style4.css' %}">
 </head>
 <body>
-<form method="post" enctype="multipart/form-data" class="img">
-        <img class="button" src="{% static 'image/free-icon-password-4438711.png' %}">
+    <form method="post" enctype="multipart/form-data" class="img">
+            <img class="button" src="{% static 'image/free-icon-password-4438711.png' %}">
         {% csrf_token %}
         {{ form.as_p }}
-        <img class="button-img" src="{% static 'image/free-icon-user-profile-10337609.png' %}">
+            <img class="button-img" src="{% static 'image/free-icon-user-profile-10337609.png' %}">
         <button class="button-btn">Sign Up</button>
     </form>
 </body>
