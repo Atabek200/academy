@@ -68,12 +68,12 @@ def user_login(request):
 
 def ticket_list(request):
     tickets = Ticket.objects.all()
-    return render(request, 'tickets/ticket_list.html', {'tickets': tickets})
+    return render(request, 'user/ticket_list.html', {'tickets': tickets})
 
 
 def ticket_detail(request, pk):
     ticket = Ticket.objects.get(pk=pk)
-    return render(request, 'tickets/ticket_detail.html', {'ticket': ticket})
+    return render(request, 'user/ticket_detail.html', {'ticket': ticket})
 
 
 def ticket_create(request):
@@ -84,7 +84,7 @@ def ticket_create(request):
             return redirect('ticket_list')
     else:
         form = TicketForm()
-    return render(request, 'tickets/ticket_form.html', {'form': form})
+    return render(request, 'user/ticket_form.html', {'form': form})
 
 
 def ticket_update(request, pk):
@@ -96,4 +96,4 @@ def ticket_update(request, pk):
             return redirect('ticket_list')
     else:
         form = TicketForm(instance=ticket)
-    return render(request, 'tickets/ticket_form.html', {'form': form})
+    return render(request, 'user/ticket_form.html', {'form': form})

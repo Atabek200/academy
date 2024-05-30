@@ -1,0 +1,34 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 5%;
+    padding: 10%;
+    margin-left: 25%;
+    background-color: #f4f4f4;
+}
+
+.img {
+   background-color: #404040;
+}
+
+.button {
+    display: flex;
+    margin-left: -2.3%;
+    margin-bottom: -3%;
+    width: 2%;
+    height: 2%;
+}
+
+.button-img {
+    display: flex;
+    margin-left: -2.3%;
+    margin-top: -3%;
+    width: 2%;
+    height: 2%;
+}
+
+.button-btn {
+    text-decoration: none;
+    max-width: 700;
+    margin-right: -24%;
+    width: 28vh;
+}
