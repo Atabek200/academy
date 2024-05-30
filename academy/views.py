@@ -2,10 +2,11 @@ from .forms import MasterSignUpForm
 from .forms import ClientSignUpForm
 from .models import Master, Client
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from .models import Ticket
 from .forms import TicketForm
+from django.contrib.auth import login
 
 
 def index(request):
