@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm Application</title>
+</head>
+<body>
+    <h2>Confirm Application</h2>
+    <p>Name: {{ application.name }}</p>
+    <p>Email: {{ application.email }}</p>
+    <p>Message: {{ application.message }}</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" name="confirm">Confirm</button>
+        <button type="submit" name="reject">Reject</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+</head>
+<body>
+    <h2>Register</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ client_form.as_p }}
+        {{ master_form.as_p }}
+        <button type="submit" name="client">Register as Client</button>
+        <button type="submit" name="master">Register as Master</button>
+    </form>
+</body>
+</html>

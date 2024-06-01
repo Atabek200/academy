@@ -28,3 +28,28 @@ class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = ['title', 'description', 'master', 'status']
+
+
+
+
+from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from .models import Client, Master
+
+class UserRegisterForm(UserCreationForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+
+class ClientRegisterForm(forms.ModelForm):
+    class Meta:
+        model = Client
+        fields = ['address', 'contact_phone']
+
+class MasterRegisterForm(forms.ModelForm):
+    class Meta:
+        model = Master
+        fields = ['specialization', 'contact_phone', 'photo']

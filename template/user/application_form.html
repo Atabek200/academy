@@ -6,8 +6,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'styles6.css' %}">
 </head>
 <body>
-    <h1>Submit your application</h1>
-    <form method="post">
+ <h2>Submit Application</h2>
+    <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Submit</button>
