@@ -3,10 +3,10 @@ from .forms import ClientSignUpForm
 from .models import Master, Client
 from .models import Ticket
 from .forms import TicketForm
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import UserRegisterForm, ClientRegisterForm, MasterRegisterForm
+from django.contrib.auth import login as auth_login, authenticate
 
 
 def index(request):
@@ -53,12 +53,12 @@ def client_signup(request):
 
 
 def ticket_list(request):
-    tickets = Ticket.objects.all()
+    tickets = Ticket.objects.all().filter(client=request.user.client_profile)
     return render(request, 'user/ticket_list.html', {'tickets': tickets})
 
 
 def ticket_detail(request, pk):
-    ticket = Ticket.objects.get(pk=pk)
+    ticket = get_object_or_404(Ticket, pk=pk, client=request.user.client_profile)
     return render(request, 'user/ticket_detail.html', {'ticket': ticket})
 
 
@@ -66,7 +66,9 @@ def ticket_create(request):
     if request.method == "POST":
         form = TicketForm(request.POST)
         if form.is_valid():
-            form.save()
+            ticket = form.save(commit=False)  # Создаем объект, но не сохраняем его в базу данных пока.
+            ticket.client = request.user.client_profile  # Устанавливаем клиента из текущего пользователя.
+            ticket.save()  # Теперь сохраняем объект в базу данных.
             return redirect('ticket_list')
     else:
         form = TicketForm()
@@ -85,39 +87,39 @@ def ticket_update(request, pk):
     return render(request, 'user/ticket_form.html', {'form': form})
 
 
-def register(request):
-    if request.method == 'POST':
-        user_form = UserRegisterForm(request.POST)
-        client_form = ClientRegisterForm(request.POST)
-        master_form = MasterRegisterForm(request.POST, request.FILES)
-        if user_form.is_valid() and (client_form.is_valid() or master_form.is_valid()):
-            user = user_form.save()
-            if 'client' in request.POST:
-                client = client_form.save(commit=False)
-                client.user = user
-                client.save()
-            elif 'master' in request.POST:
-                master = master_form.save(commit=False)
-                master.user = user
-                master.save()
-            login(request, user)
-            return redirect('home')
+def ticket_list(request):
+    tickets = Ticket.objects.all().filter(master=request.user.master_profile)
+    return render(request, 'user/ticket_list.html', {'tickets': tickets})
+
+
+def ticket_detail(request, pk):
+    ticket = get_object_or_404(Ticket, pk=pk, master=request.user.master_profile)
+    return render(request, 'user/ticket_detail.html', {'ticket': ticket})
+
+
+def ticket_update(request, pk):
+    ticket = Ticket.objects.get(pk=pk)
+    if request.method == "POST":
+        form = TicketForm(request.POST, instance=ticket)
+        if form.is_valid():
+            form.save()
+            return redirect('ticket_list')
     else:
-        user_form = UserRegisterForm()
-        client_form = ClientRegisterForm()
-        master_form = MasterRegisterForm()
-    return render(request, 'register.html', {'user_form': user_form, 'client_form': client_form, 'master_form': master_form})
+        form = TicketForm(instance=ticket)
+    return render(request, 'user/ticket_form.html', {'form': form})
 
 
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
+            user = form.get_user()
+            auth_login(request, user)
+            if hasattr(user, 'master_profile'):
+                return redirect('master_page')
+            elif hasattr(user, 'client_profile'):
+                return redirect('client_page')
+            else:
                 return redirect('home')
     else:
         form = AuthenticationForm()

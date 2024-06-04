@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from .models import Specialization
 from django import forms
 from .models import Ticket
+from .models import Client, Master
 
 
 class MasterSignUpForm(UserCreationForm):
@@ -30,13 +31,6 @@ class TicketForm(forms.ModelForm):
         fields = ['title', 'description', 'master', 'status']
 
 
-
-
-from django import forms
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from .models import Client, Master
-
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
 
@@ -44,10 +38,12 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
+
 class ClientRegisterForm(forms.ModelForm):
     class Meta:
         model = Client
         fields = ['address', 'contact_phone']
+
 
 class MasterRegisterForm(forms.ModelForm):
     class Meta:

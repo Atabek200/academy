@@ -26,13 +26,11 @@ COMPRESS_ENABLED = True
 
 # myproject/settings.py
 
-STATIC_URL = 'https://cdn.example.com/static/'
+STATIC_URL: str = 'https://cdn.example.com/static/'
 
 
 # Application definition
 INSTALLED_APPS = [
-    'users',
-    'applications',
     'academy',
     'django.contrib.admin',
     'django.contrib.auth',
