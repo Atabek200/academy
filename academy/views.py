@@ -52,17 +52,17 @@ def client_signup(request):
     return render(request, 'user/registrations_client.html', {'form': form})
 
 
-def ticket_list(request):
+def client_list(request):
     tickets = Ticket.objects.all().filter(client=request.user.client_profile)
     return render(request, 'user/ticket_list.html', {'tickets': tickets})
 
 
-def ticket_detail(request, pk):
+def client_detail(request, pk):
     ticket = get_object_or_404(Ticket, pk=pk, client=request.user.client_profile)
     return render(request, 'user/ticket_detail.html', {'ticket': ticket})
 
 
-def ticket_create(request):
+def client_create(request):
     if request.method == "POST":
         form = TicketForm(request.POST)
         if form.is_valid():
@@ -75,38 +75,26 @@ def ticket_create(request):
     return render(request, 'user/ticket_form.html', {'form': form})
 
 
-def ticket_update(request, pk):
+def master_update(request, pk):
     ticket = Ticket.objects.get(pk=pk)
     if request.method == "POST":
         form = TicketForm(request.POST, instance=ticket)
         if form.is_valid():
             form.save()
-            return redirect('ticket_list')
+            return redirect('master_list')
     else:
         form = TicketForm(instance=ticket)
-    return render(request, 'user/ticket_form.html', {'form': form})
+    return render(request, 'user/master_form.html', {'form': form})
 
 
-def ticket_list(request):
+def master_list(request):
     tickets = Ticket.objects.all().filter(master=request.user.master_profile)
-    return render(request, 'user/ticket_list.html', {'tickets': tickets})
+    return render(request, 'user/master_list.html', {'tickets': tickets})
 
 
-def ticket_detail(request, pk):
+def master_detail(request, pk):
     ticket = get_object_or_404(Ticket, pk=pk, master=request.user.master_profile)
-    return render(request, 'user/ticket_detail.html', {'ticket': ticket})
-
-
-def ticket_update(request, pk):
-    ticket = Ticket.objects.get(pk=pk)
-    if request.method == "POST":
-        form = TicketForm(request.POST, instance=ticket)
-        if form.is_valid():
-            form.save()
-            return redirect('ticket_list')
-    else:
-        form = TicketForm(instance=ticket)
-    return render(request, 'user/ticket_form.html', {'form': form})
+    return render(request, 'user/master_detail.html', {'ticket': ticket})
 
 
 def login_view(request):

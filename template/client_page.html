@@ -1,10 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Спасибо за регистрации</title>
+    <link rel="stylesheet" href="{% static 'style8.css' %}">
 </head>
 <body>
-clietn
+    <div class="container">
+        <h2>Здраствуйте наш клиент</h2>
+        <h2>Успешна принаты</h2>
+        <span><img src="{% static 'image/icons8-проверено-64.png' %}"></span>
+        <a href="{% url 'home' %}" class="button">Перейти на главную страницу</a>
+    </div>
 </body>
 </html>

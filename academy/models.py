@@ -19,7 +19,7 @@ class Client(models.Model):
 
 
 class Master(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='master')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='master_profile')
     specialization = models.ForeignKey(Specialization, on_delete=models.SET_NULL, null=True)
     contact_phone = models.CharField(max_length=15)
     photo = models.ImageField(upload_to='master_photos/', null=True, blank=True)
